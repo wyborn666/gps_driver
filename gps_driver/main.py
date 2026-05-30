@@ -5,6 +5,10 @@ import time
 import os
 import json
 import utm
+import subprocess
+
+subprocess.run(["sudo", "gpsd", "-n", "-F", "/var/run/gpsd.sock", "/dev/serial0"])
+time.sleep(1)
 
 GPS_HOST = os.getenv("GPS_HOST", "gpsd")
 GPS_PORT = int(os.getenv("GPS_PORT", 2947))
@@ -80,3 +84,5 @@ for new_data in gps_socket:
             print(f"[WARN] Ошибка отправки UDP: {e}")
         print(message)
         time.sleep(0.5)
+
+
